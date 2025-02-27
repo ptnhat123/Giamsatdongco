@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="sidebar w-1/5 h-screen p-6">
+            <div class="logo text-2xl font-bold mb-8">
+                DaxBod
+            </div>
+            <ul>
+                <li class="mb-6">
+                    <a href="#" class="flex items-center text-lg">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="mb-6">
+                    <a href="#" class="flex items-center text-lg">
+                        <i class="fas fa-history mr-3"></i>
+                        Lịch sử
+                    </a>
+                </li>
+                <li class="mb-6">
+                    <button class="btn flex items-center">
+                        <i class="fas fa-file-export mr-2"></i>
+                        Xuất file
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content w-4/5">
+            <div class="text-center text-3xl font-bold mb-8 animate-fade-in">Giám sát động cơ</div>
+
+            <!-- Main Chart -->
+            <div class="chart-container animate-fade-in" style="animation-delay: 0.2s">
+                <canvas id="myChart" height="200"></canvas>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-3 gap-6">
+                <!-- Team Card -->
+                <div class="card animate-fade-in" style="animation-delay: 0.4s">
+                    <div class="card-header">
+                        <i class="fas fa-users mr-2"></i>Team
+                    </div>
+                    <ul class="team-list p-4">
+                        <li>Phạm Tiến Nhật</li>
+                        <li>Trần Thị Hằng</li>
+                        <li>Chu Văn Anh</li>
+                        <li>Lê Văn Duy</li>
+                        <li>Nguyễn Trí Trọng</li>
+                    </ul>
+                </div>
+
+                <!-- Status Card -->
+                <div class="card animate-fade-in" style="animation-delay: 0.6s">
+                    <div class="card-header">
+                        <i class="fas fa-engine mr-2"></i>Trạng thái động cơ
+                    </div>
+                    <div class="status">
+                        Tốt
+                    </div>
+                </div>
+
+                <!-- Pie Chart Card -->
+                <div class="card animate-fade-in" style="animation-delay: 0.8s">
+                    <div class="card-header">
+                        <i class="fas fa-chart-pie mr-2"></i>Biểu đồ tròn
+                    </div>
+                    <div class="p-4">
+                        <canvas id="pieChart" height="150"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Biểu đồ chính với màu sắc mới
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'],
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Biểu đồ tròn với màu sắc mới
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Tốt', 'Trung bình', 'Kém'],
+                datasets: [{
+                    data: [60, 30, 10],
+                    backgroundColor: [
+                        'rgba(74, 222, 128, 0.8)',
+                        'rgba(250, 204, 21, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(74, 222, 128, 1)',
+                        'rgba(250, 204, 21, 1)',
+                        'rgba(239, 68, 68, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
